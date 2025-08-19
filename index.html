@@ -12,26 +12,30 @@
             /* Tema Claro (Padrão) */
             --bg-color: #f4f4f4;
             --text-color: #1a1a1a;
-            --card-bg-color: rgba(255, 255, 255, 0.85);
-            --button-bg-color: #e9e9e9;
+            --card-bg-color: rgba(255, 255, 255, 0.75);
+            --button-bg-color: #ffffff;
             --button-text-color: #1a1a1a;
-            --button-hover-bg: #dcdcdc;
+            --button-hover-bg: #ffffff;
             --border-color: rgba(0, 0, 0, 0.1);
             --shadow-color: rgba(0, 0, 0, 0.1);
             --icon-color: #444;
+            --cursor-color: #222;
+            --particles-color: "#aaa"; /* Aspas são importantes aqui */
         }
 
         body.dark-mode {
             /* Tema Escuro */
             --bg-color: #121212;
             --text-color: #f5f5f5;
-            --card-bg-color: rgba(28, 28, 28, 0.85);
-            --button-bg-color: #2a2a2a;
+            --card-bg-color: rgba(28, 28, 28, 0.75);
+            --button-bg-color: #1e1e1e;
             --button-text-color: #f5f5f5;
-            --button-hover-bg: #3c3c3c;
-            --border-color: rgba(255, 255, 255, 0.1);
-            --shadow-color: rgba(0, 0, 0, 0.3);
+            --button-hover-bg: #1e1e1e;
+            --border-color: rgba(255, 255, 255, 0.15);
+            --shadow-color: rgba(0, 0, 0, 0.35);
             --icon-color: #bbb;
+            --cursor-color: #fff;
+            --particles-color: "#555"; /* Aspas são importantes aqui */
         }
 
         /* Estilos Gerais */
@@ -52,6 +56,18 @@
             align-items: center;
             padding: 20px;
             perspective: 1000px;
+            overflow: hidden; /* Esconde barras de rolagem */
+            cursor: none; /* Esconde o cursor padrão */
+        }
+
+        /* Fundo de Partículas */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
         }
 
         /* Container Principal */
@@ -61,12 +77,13 @@
             text-align: center;
             padding: 40px 30px;
             background: var(--card-bg-color);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             border-radius: 20px;
             border: 1px solid var(--border-color);
             box-shadow: 0 8px 32px 0 var(--shadow-color);
             transition: transform 0.2s ease-out, background-color 0.3s ease, border-color 0.3s ease;
             position: relative;
+            z-index: 2;
         }
 
         /* Perfil */
@@ -80,29 +97,11 @@
             transition: transform 0.3s ease-in-out, border-color 0.3s ease;
         }
 
-        .profile-picture:hover {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .username {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .description {
-            font-size: 1rem;
-            color: var(--text-color);
-            opacity: 0.8;
-            margin-bottom: 30px;
-        }
+        .username { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+        .description { font-size: 1rem; color: var(--text-color); opacity: 0.8; margin-bottom: 30px; }
 
         /* Botões de Link */
-        .links-container {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-        }
+        .links-container { display: flex; flex-direction: column; gap: 18px; }
 
         .link-button {
             display: flex;
@@ -116,22 +115,35 @@
             border-radius: 12px;
             font-size: 1.1rem;
             font-weight: 600;
-            border: 1px solid transparent;
+            border: 1px solid var(--border-color);
             transition: all 0.3s ease;
+            position: relative; /* Para o efeito shiny */
+            overflow: hidden; /* Para o efeito shiny */
         }
 
         .link-button:hover {
-            background-color: var(--button-hover-bg);
-            border-color: var(--text-color);
             transform: translateY(-4px) scale(1.03);
             box-shadow: 0 10px 20px -5px var(--shadow-color);
         }
 
-        .link-button i {
-            font-size: 1.3rem;
-            color: var(--icon-color);
-            transition: color 0.3s ease;
+        /* Efeito Shiny (Brilho) */
+        .link-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 75%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+            transform: skewX(-25deg);
+            transition: left 0.6s ease;
         }
+
+        .link-button:hover::before {
+            left: 150%;
+        }
+
+        .link-button i { font-size: 1.3rem; color: var(--icon-color); transition: color 0.3s ease; }
         
         /* Animações de Entrada */
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -139,15 +151,10 @@
             opacity: 0;
             animation: fadeInUp 0.8s ease-out forwards;
         }
-        .profile-picture { animation-delay: 0.2s; }
-        .username { animation-delay: 0.4s; }
-        .description { animation-delay: 0.5s; }
-        .links-container a:nth-child(1) { animation-delay: 0.6s; }
-        .links-container a:nth-child(2) { animation-delay: 0.7s; }
-        .links-container a:nth-child(3) { animation-delay: 0.8s; }
-        .links-container a:nth-child(4) { animation-delay: 0.9s; }
-        .links-container a:nth-child(5) { animation-delay: 1.0s; }
-        .footer { animation-delay: 1.2s; }
+        .profile-picture { animation-delay: 0.2s; } .username { animation-delay: 0.4s; } .description { animation-delay: 0.5s; }
+        .links-container a:nth-child(1) { animation-delay: 0.6s; } .links-container a:nth-child(2) { animation-delay: 0.7s; }
+        .links-container a:nth-child(3) { animation-delay: 0.8s; } .links-container a:nth-child(4) { animation-delay: 0.9s; }
+        .links-container a:nth-child(5) { animation-delay: 1.0s; } .footer { animation-delay: 1.2s; }
         
         /* Botão de Alternância de Tema */
         .theme-toggle {
@@ -159,24 +166,44 @@
             border-radius: 50%;
             width: 40px;
             height: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; transition: all 0.3s ease; z-index: 10;
         }
-        .theme-toggle:hover {
-            transform: scale(1.1);
+        .theme-toggle .fa-sun { display: none; } .theme-toggle .fa-moon { display: block; }
+        .dark-mode .theme-toggle .fa-sun { display: block; } .dark-mode .theme-toggle .fa-moon { display: none; }
+
+        /* Cursor Personalizado */
+        .cursor-dot, .cursor-outline {
+            pointer-events: none;
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            opacity: 1;
+            transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out, width 0.3s ease, height 0.3s ease;
+            z-index: 999;
         }
-        .theme-toggle .fa-sun { display: none; }
-        .theme-toggle .fa-moon { display: block; }
-        
-        .dark-mode .theme-toggle .fa-sun { display: block; }
-        .dark-mode .theme-toggle .fa-moon { display: none; }
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--cursor-color);
+        }
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            background-color: transparent;
+            border: 2px solid var(--cursor-color);
+        }
+        .cursor-hidden { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+        .cursor-magnetic { transform: translate(-50%, -50%) scale(2); background-color: rgba(128,128,128,0.2); border: none; }
     </style>
 </head>
 <body>
 
+    <div id="particles-js"></div>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+    
     <main class="container" id="card">
         <div class="theme-toggle" id="theme-toggle-button" title="Alternar tema">
             <i class="fas fa-moon"></i>
@@ -184,23 +211,25 @@
         </div>
 
         <header>
-            <img src="https://via.placeholder.com/150" alt="Foto de Perfil" class="profile-picture">
+            <img src="https://via.placeholder.com/150" alt="Foto de Perfil" class="profile-picture magnetic">
             <h1 class="username">@seuusuario</h1>
-            <p class="description">Um design limpo, rápido e direto ao ponto.</p>
+            <p class="description">Design moderno com interações avançadas.</p>
         </header>
 
         <div class="links-container">
-            <a href="#" target="_blank" class="link-button"><i class="fab fa-instagram"></i> Instagram</a>
-            <a href="#" target="_blank" class="link-button"><i class="fab fa-tiktok"></i> TikTok</a>
-            <a href="#" target="_blank" class="link-button"><i class="fab fa-github"></i> GitHub</a>
-            <a href="#" target="_blank" class="link-button"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
-            <a href="#" target="_blank" class="link-button"><i class="fas fa-globe"></i> Website Pessoal</a>
+            <a href="#" target="_blank" class="link-button magnetic"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="#" target="_blank" class="link-button magnetic"><i class="fab fa-tiktok"></i> TikTok</a>
+            <a href="#" target="_blank" class="link-button magnetic"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" target="_blank" class="link-button magnetic"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+            <a href="#" target="_blank" class="link-button magnetic"><i class="fas fa-globe"></i> Website Pessoal</a>
         </div>
 
         <footer class="footer">
-            <p style="margin-top: 40px; opacity: 0.7;">Feito com ❤️</p>
+            <p style="margin-top: 40px; opacity: 0.7;">Desenvolvido com tecnologias modernas</p>
         </footer>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
     <script>
         // Lógica para efeito de inclinação (TILT)
@@ -210,37 +239,75 @@
             const { innerWidth, innerHeight } = window;
             const rotateX = (clientY / innerHeight - 0.5) * 15;
             const rotateY = -(clientX / innerWidth - 0.5) * 15;
-            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            if (window.innerWidth > 768) { // Desativa em telas pequenas
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            }
         });
-        document.body.addEventListener('mouseleave', () => {
-            card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+        document.body.addEventListener('mouseleave', () => card.style.transform = 'rotateX(0deg) rotateY(0deg)');
+
+        // --- Lógica do Cursor Personalizado ---
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        const magneticElements = document.querySelectorAll('.magnetic');
+
+        window.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            cursorDot.style.left = `${clientX}px`;
+            cursorDot.style.top = `${clientY}px`;
+            cursorOutline.style.left = `${clientX}px`;
+            cursorOutline.style.top = `${clientY}px`;
+        });
+        
+        magneticElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorOutline.classList.add('cursor-magnetic');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorOutline.classList.remove('cursor-magnetic');
+            });
         });
 
-        // Lógica para alternância de tema (THEME TOGGLE)
+        // --- Lógica para alternância de tema e Partículas ---
         const themeToggleButton = document.getElementById('theme-toggle-button');
         const body = document.body;
+        let currentParticlesConfig;
 
-        // Função para aplicar o tema
+        const lightParticlesConfig = { particles: { color: { value: '#555555' }, line_linked: { color: '#777777' }, }, };
+        const darkParticlesConfig = { particles: { color: { value: '#bbbbbb' }, line_linked: { color: '#444444' }, }, };
+
+        function setupParticles(theme) {
+            const baseConfig = {
+                particles: {
+                    number: { value: 60, density: { enable: true, value_area: 800 } },
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.5, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: { enable: true, distance: 150, opacity: 0.4 },
+                    move: { enable: true, speed: 1, direction: 'none', out_mode: 'out' }
+                },
+                interactivity: {
+                    events: { onhover: { enable: true, mode: 'grab' }, },
+                    modes: { grab: { distance: 140, line_opacity: 1 } }
+                }
+            };
+            // Mescla a configuração base com a do tema
+            const finalConfig = { ...baseConfig, ...theme === 'dark' ? darkParticlesConfig : lightParticlesConfig };
+            particlesJS('particles-js', finalConfig);
+        }
+
         const applyTheme = (theme) => {
-            if (theme === 'dark') {
-                body.classList.add('dark-mode');
-            } else {
-                body.classList.remove('dark-mode');
-            }
+            body.className = theme === 'dark' ? 'dark-mode' : '';
+            setupParticles(theme);
         };
-
-        // Verifica o tema salvo no localStorage ao carregar
+        
         const savedTheme = localStorage.getItem('theme') || 'light';
         applyTheme(savedTheme);
 
-        // Evento de clique para alternar o tema
         themeToggleButton.addEventListener('click', () => {
-            const isDarkMode = body.classList.contains('dark-mode');
-            const newTheme = isDarkMode ? 'light' : 'dark';
+            const newTheme = body.classList.contains('dark-mode') ? 'light' : 'dark';
+            localStorage.setItem('theme', newTheme);
             applyTheme(newTheme);
-            localStorage.setItem('theme', newTheme); // Salva a preferência
         });
     </script>
-
 </body>
 </html>
