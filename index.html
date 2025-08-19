@@ -3,341 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seu Nome | Meus Links</title>
-
-    <meta name="description" content="Todos os meus links importantes em um só lugar. Me encontre no Instagram, GitHub, LinkedIn e muito mais!">
-    <meta name="keywords" content="links, portfolio, social, contato, seu nome">
-    <meta property="og:title" content="Seu Nome | Meus Links">
-    <meta property="og:description" content="Acesse todos os meus links e redes sociais facilmente.">
-    <meta property="og:image" content="https://seusite.com/imagem-preview.png"> <meta property="og:url" content="https://seusite.com">
-    <meta property="og:type" content="website">
-
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
+    <title>Meus Links</title>
     <style>
-        /* Importando uma fonte moderna do Google Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
-        /* --- Variáveis de Cor para Theming --- */
-        :root {
-            --bg-gradient-start: #f8cdda;
-            --bg-gradient-end: #b3e5fc;
-            --container-bg: rgba(255, 255, 255, 0.6);
-            --text-color: #212121;
-            --button-bg: rgba(255, 255, 255, 0.8);
-            --button-hover-bg: #ffffff;
-            --button-border: #ffffff;
-            --shadow-color: rgba(0, 0, 0, 0.1);
-            --icon-color: #333;
-            --footer-text-color: #555;
-        }
-
-        body.dark-mode {
-            --bg-gradient-start: #121212;
-            --bg-gradient-end: #2c3e50;
-            --container-bg: rgba(44, 44, 44, 0.5);
-            --text-color: #f5f5f5;
-            --button-bg: rgba(60, 60, 60, 0.7);
-            --button-hover-bg: #4a4a4a;
-            --button-border: #555;
-            --shadow-color: rgba(0, 0, 0, 0.4);
-            --icon-color: #f5f5f5;
-            --footer-text-color: #aaa;
-        }
-
-        /* --- Estilos Gerais e Fundo Animado --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5;
+            color: #1c1e21;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
-            background: linear-gradient(45deg, var(--bg-gradient-start), var(--bg-gradient-end));
-            background-size: 400% 400%;
-            animation: gradientAnimation 15s ease infinite;
-            transition: background 0.5s ease;
-            color: var(--text-color);
         }
-
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* --- Container Principal (Efeito Glassmorphism) --- */
         .container {
-            max-width: 600px;
-            width: 100%;
+            width: 90%;
+            max-width: 680px;
             text-align: center;
-            padding: 30px;
-            background: var(--container-bg);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 var(--shadow-color);
-            transition: all 0.3s ease;
+            padding: 20px;
         }
-
-        /* --- Cabeçalho e Perfil --- */
-        header {
-            margin-bottom: 30px;
-        }
-
-        #profile-pic {
-            width: 120px;
-            height: 120px;
+        .profile-picture {
+            width: 96px;
+            height: 96px;
             border-radius: 50%;
-            border: 4px solid var(--button-border);
             object-fit: cover;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 15px var(--shadow-color);
+            margin-bottom: 16px;
         }
-
-        header h1 {
-            font-size: 1.8em;
+        .profile-name {
+            font-size: 20px;
             font-weight: 600;
+            margin-bottom: 8px;
         }
-
-        header p {
-            font-size: 1em;
-            font-weight: 300;
-            margin-top: 5px;
+        .profile-description {
+            font-size: 16px;
+            margin-bottom: 32px;
+            color: #606770;
         }
-
-        /* --- Seção de Links --- */
-        #links {
+        .links-container {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 16px;
         }
-
-        .link-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-            background-color: var(--button-bg);
-            color: var(--text-color);
+        .link {
+            background-color: #ffffff;
+            color: #1c1e21;
             text-decoration: none;
-            border-radius: 12px;
-            border: 1px solid var(--button-border);
-            font-size: 1.1em;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            border: 1px solid #dddfe2;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-
-        .link-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px var(--shadow-color);
-            background-color: var(--button-hover-bg);
+        .link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-
-        .link-button i {
-            margin-right: 15px;
-            width: 20px;
-            text-align: center;
-        }
-
-        /* --- Ícones Sociais --- */
-        #social-icons {
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-        }
-
-        #social-icons a {
-            color: var(--icon-color);
-            font-size: 1.8em;
-            transition: transform 0.2s ease, color 0.2s;
-        }
-
-        #social-icons a:hover {
-            transform: scale(1.2);
-            color: var(--text-color);
-        }
-
-        /* --- Controles Avançados (Tema e Compartilhar) --- */
-        .advanced-controls {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            display: flex;
-            gap: 10px;
-        }
-
-        .advanced-controls button {
-            background: var(--container-bg);
-            border: 1px solid var(--button-border);
-            color: var(--icon-color);
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.2em;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-        }
-
-        .advanced-controls button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 10px var(--shadow-color);
-        }
-
-        #theme-toggle .fa-sun { display: none; }
-        #theme-toggle .fa-moon { display: block; }
-
-        body.dark-mode #theme-toggle .fa-sun { display: block; }
-        body.dark-mode #theme-toggle .fa-moon { display: none; }
-
-
-        /* --- Rodapé --- */
-        footer {
-            margin-top: 30px;
-            color: var(--footer-text-color);
-            font-size: 0.9em;
+        .footer {
+            margin-top: 40px;
+            font-size: 12px;
+            color: #8a8d91;
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <img src="https://via.placeholder.com/96" alt="Foto de Perfil" class="profile-picture">
 
-    <main class="container">
-        <header>
-            <img src="https://via.placeholder.com/150" alt="Foto de Perfil" id="profile-pic">
-            <h1>@SeuUsuario</h1>
-            <p>Criador de Conteúdo | Desenvolvedor | Apaixonado por tecnologia</p>
-        </header>
+        <div class="profile-name">@seuusuario</div>
 
-        <section id="links">
-            <a href="#" target="_blank" rel="noopener noreferrer" class="link-button" data-goal="Portfolio">
-                <i class="fas fa-globe"></i>
-                <span>Meu Portfólio</span>
-            </a>
-            <a href="#" target="_blank" rel="noopener noreferrer" class="link-button" data-goal="YouTube">
-                <i class="fa-brands fa-youtube"></i>
-                <span>Canal no YouTube</span>
-            </a>
-            <a href="#" target="_blank" rel="noopener noreferrer" class="link-button" data-goal="GitHub">
-                <i class="fa-brands fa-github"></i>
-                <span>Projetos no GitHub</span>
-            </a>
-            <a href="#" target="_blank" rel="noopener noreferrer" class="link-button" data-goal="LinkedIn">
-                <i class="fa-brands fa-linkedin"></i>
-                <span>Perfil no LinkedIn</span>
-            </a>
-            <a href="#" target="_blank" rel="noopener noreferrer" class="link-button" data-goal="Email">
-                <i class="fas fa-envelope"></i>
-                <span>Entre em Contato por E-mail</span>
-            </a>
-        </section>
-
-        <section id="social-icons">
-             <a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#" aria-label="Twitter/X" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
-            <a href="#" aria-label="TikTok" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-tiktok"></i></a>
-        </section>
-
-        <div class="advanced-controls">
-            <button id="theme-toggle" aria-label="Mudar tema">
-                <i class="fas fa-sun"></i>
-                <i class="fas fa-moon"></i>
-            </button>
-            <button id="share-button" aria-label="Compartilhar">
-                <i class="fas fa-share-alt"></i>
-            </button>
+        <div class="profile-description">
+            Bem-vindo à minha página de links! Aqui você encontra tudo sobre meu trabalho.
         </div>
 
-    </main>
+        <div class="links-container">
+            <a href="#" class="link" target="_blank">Meu Website</a>
+            <a href="#" class="link" target="_blank">Canal no YouTube</a>
+            <a href="#" class="link" target="_blank">Instagram</a>
+            <a href="#" class="link" target="_blank">TikTok</a>
+            <a href="#" class="link" target="_blank">Twitter / X</a>
+            <a href="#" class="link" target="_blank">Meu Portfólio</a>
+        </div>
 
-    <footer>
-        <p>&copy; 2025 Seu Nome. Todos os direitos reservados.</p>
-    </footer>
-
-    <script>
-        // Espera o conteúdo da página carregar completamente antes de executar o script
-        document.addEventListener('DOMContentLoaded', () => {
-
-            // --- LÓGICA DO SELETOR DE TEMA (CLARO/ESCURO) ---
-            const themeToggle = document.getElementById('theme-toggle');
-            const body = document.body;
-
-            // Verifica se há um tema salvo no localStorage do usuário
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                body.classList.add(savedTheme);
-            }
-
-            // Adiciona o evento de clique ao botão
-            themeToggle.addEventListener('click', () => {
-                body.classList.toggle('dark-mode');
-
-                // Salva a preferência do usuário no localStorage
-                if (body.classList.contains('dark-mode')) {
-                    localStorage.setItem('theme', 'dark-mode');
-                } else {
-                    localStorage.removeItem('theme');
-                }
-            });
-
-
-            // --- LÓGICA DO BOTÃO DE COMPARTILHAMENTO ---
-            const shareButton = document.getElementById('share-button');
-
-            shareButton.addEventListener('click', async () => {
-                // Verifica se a API de compartilhamento nativo do navegador está disponível
-                if (navigator.share) {
-                    try {
-                        await navigator.share({
-                            title: document.title, // Título da página
-                            text: 'Confira todos os meus links importantes!', // Texto descritivo
-                            url: window.location.href // URL da página atual
-                        });
-                        console.log('Página compartilhada com sucesso!');
-                    } catch (error) {
-                        console.error('Erro ao compartilhar:', error);
-                    }
-                } else {
-                    // Fallback para navegadores que não suportam a API (ex: desktop)
-                    // Copia o link para a área de transferência
-                    navigator.clipboard.writeText(window.location.href).then(() => {
-                        alert('Link copiado para a área de transferência!');
-                    }).catch(err => {
-                        console.error('Falha ao copiar o link:', err);
-                        alert('Não foi possível copiar o link. Por favor, copie a URL manualmente.');
-                    });
-                }
-            });
-
-
-            // --- "ANALYTICS" SIMPLES PARA RASTREAR CLIQUES NOS LINKS ---
-            const linkButtons = document.querySelectorAll('.link-button');
-
-            linkButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const goal = button.getAttribute('data-goal');
-                    // Em um projeto real, você enviaria isso para o Google Analytics ou outra ferramenta.
-                    // Ex: gtag('event', 'click', { 'link_name': goal });
-                    console.log(`Clique rastreado: o link "${goal}" foi clicado.`);
-                });
-            });
-
-        });
-    </script>
-
+        <div class="footer">
+            Feito com ❤️
+        </div>
+    </div>
 </body>
 </html>
