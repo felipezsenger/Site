@@ -6,67 +6,52 @@
     <title>Meus Links | Seu Nome</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <style>
-        /* * CSS com Variáveis para Temas Claro e Escuro
-         */
         :root {
-            /* Tema Claro (Padrão) */
-            --bg-color: #f4f4f4;
+            /* Tema Claro */
+            --bg-color: #e9e9e9;
             --text-color: #1a1a1a;
-            --card-bg-color: rgba(255, 255, 255, 0.75);
+            --card-bg-color: rgba(255, 255, 255, 0.65);
             --button-bg-color: #ffffff;
-            --button-text-color: #1a1a1a;
-            --button-hover-bg: #ffffff;
             --border-color: rgba(0, 0, 0, 0.1);
             --shadow-color: rgba(0, 0, 0, 0.1);
-            --icon-color: #444;
             --cursor-color: #222;
-            --particles-color: "#aaa"; /* Aspas são importantes aqui */
         }
 
         body.dark-mode {
             /* Tema Escuro */
-            --bg-color: #121212;
+            --bg-color: #050505;
             --text-color: #f5f5f5;
-            --card-bg-color: rgba(28, 28, 28, 0.75);
+            --card-bg-color: rgba(18, 18, 18, 0.65);
             --button-bg-color: #1e1e1e;
-            --button-text-color: #f5f5f5;
-            --button-hover-bg: #1e1e1e;
             --border-color: rgba(255, 255, 255, 0.15);
-            --shadow-color: rgba(0, 0, 0, 0.35);
-            --icon-color: #bbb;
+            --shadow-color: rgba(0, 0, 0, 0.4);
             --cursor-color: #fff;
-            --particles-color: "#555"; /* Aspas são importantes aqui */
         }
 
         /* Estilos Gerais */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', 'Segoe UI', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.4s ease, color 0.4s ease;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            perspective: 1000px;
-            overflow: hidden; /* Esconde barras de rolagem */
-            cursor: none; /* Esconde o cursor padrão */
+            overflow: hidden;
+            cursor: none;
         }
 
-        /* Fundo de Partículas */
-        #particles-js {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+        /* Canvas para a cena 3D */
+        #bg-canvas {
+            position: fixed;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 0;
         }
 
@@ -77,95 +62,56 @@
             text-align: center;
             padding: 40px 30px;
             background: var(--card-bg-color);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px) saturate(150%);
             border-radius: 20px;
             border: 1px solid var(--border-color);
             box-shadow: 0 8px 32px 0 var(--shadow-color);
-            transition: transform 0.2s ease-out, background-color 0.3s ease, border-color 0.3s ease;
+            transition: transform 0.2s ease-out, background-color 0.4s ease, border-color 0.4s ease;
             position: relative;
             z-index: 2;
         }
 
         /* Perfil */
         .profile-picture {
-            width: 130px;
-            height: 130px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid var(--text-color);
             margin-bottom: 15px;
-            transition: transform 0.3s ease-in-out, border-color 0.3s ease;
+            transition: transform 0.3s ease-in-out, border-color 0.4s ease;
         }
 
         .username { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
         .description { font-size: 1rem; color: var(--text-color); opacity: 0.8; margin-bottom: 30px; }
 
         /* Botões de Link */
-        .links-container { display: flex; flex-direction: column; gap: 18px; }
+        .links-container { display: flex; flex-direction: column; gap: 16px; }
 
         .link-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             gap: 12px;
             background-color: var(--button-bg-color);
-            color: var(--button-text-color);
-            text-decoration: none;
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            color: var(--text-color);
+            text-decoration: none; padding: 15px; border-radius: 12px;
+            font-size: 1.1rem; font-weight: 600;
             border: 1px solid var(--border-color);
             transition: all 0.3s ease;
-            position: relative; /* Para o efeito shiny */
-            overflow: hidden; /* Para o efeito shiny */
+            position: relative; overflow: hidden;
         }
 
         .link-button:hover {
             transform: translateY(-4px) scale(1.03);
             box-shadow: 0 10px 20px -5px var(--shadow-color);
         }
-
-        /* Efeito Shiny (Brilho) */
-        .link-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -150%;
-            width: 75%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-            transform: skewX(-25deg);
-            transition: left 0.6s ease;
-        }
-
-        .link-button:hover::before {
-            left: 150%;
-        }
-
-        .link-button i { font-size: 1.3rem; color: var(--icon-color); transition: color 0.3s ease; }
-        
-        /* Animações de Entrada */
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .profile-picture, .username, .description, .links-container > *, .footer {
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-        .profile-picture { animation-delay: 0.2s; } .username { animation-delay: 0.4s; } .description { animation-delay: 0.5s; }
-        .links-container a:nth-child(1) { animation-delay: 0.6s; } .links-container a:nth-child(2) { animation-delay: 0.7s; }
-        .links-container a:nth-child(3) { animation-delay: 0.8s; } .links-container a:nth-child(4) { animation-delay: 0.9s; }
-        .links-container a:nth-child(5) { animation-delay: 1.0s; } .footer { animation-delay: 1.2s; }
+        .link-button i { font-size: 1.3rem; }
         
         /* Botão de Alternância de Tema */
         .theme-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
+            position: absolute; top: 20px; right: 20px;
             background: var(--button-bg-color);
             border: 1px solid var(--border-color);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            border-radius: 50%; width: 40px; height: 40px;
             display: flex; justify-content: center; align-items: center;
             cursor: pointer; transition: all 0.3s ease; z-index: 10;
         }
@@ -174,37 +120,23 @@
 
         /* Cursor Personalizado */
         .cursor-dot, .cursor-outline {
-            pointer-events: none;
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
+            pointer-events: none; position: fixed;
             border-radius: 50%;
-            opacity: 1;
-            transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out, width 0.3s ease, height 0.3s ease;
+            transition: opacity 0.3s ease, transform 0.2s ease, width 0.3s ease, height 0.3s ease;
             z-index: 999;
         }
-        .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--cursor-color);
-        }
-        .cursor-outline {
-            width: 40px;
-            height: 40px;
-            background-color: transparent;
-            border: 2px solid var(--cursor-color);
-        }
-        .cursor-hidden { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+        .cursor-dot { width: 8px; height: 8px; background-color: var(--cursor-color); transform: translate(-50%, -50%);}
+        .cursor-outline { width: 40px; height: 40px; border: 2px solid var(--cursor-color); transform: translate(-50%, -50%);}
         .cursor-magnetic { transform: translate(-50%, -50%) scale(2); background-color: rgba(128,128,128,0.2); border: none; }
     </style>
 </head>
 <body>
 
-    <div id="particles-js"></div>
+    <canvas id="bg-canvas"></canvas>
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
     
-    <main class="container" id="card">
+    <main class="container">
         <div class="theme-toggle" id="theme-toggle-button" title="Alternar tema">
             <i class="fas fa-moon"></i>
             <i class="fas fa-sun"></i>
@@ -213,7 +145,7 @@
         <header>
             <img src="https://via.placeholder.com/150" alt="Foto de Perfil" class="profile-picture magnetic">
             <h1 class="username">@seuusuario</h1>
-            <p class="description">Design moderno com interações avançadas.</p>
+            <p class="description">Navegue pelos meus links no espaço 3D.</p>
         </header>
 
         <div class="links-container">
@@ -223,91 +155,104 @@
             <a href="#" target="_blank" class="link-button magnetic"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
             <a href="#" target="_blank" class="link-button magnetic"><i class="fas fa-globe"></i> Website Pessoal</a>
         </div>
-
-        <footer class="footer">
-            <p style="margin-top: 40px; opacity: 0.7;">Desenvolvido com tecnologias modernas</p>
-        </footer>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <script>
-        // Lógica para efeito de inclinação (TILT)
-        const card = document.getElementById('card');
-        document.body.addEventListener('mousemove', (e) => {
-            const { clientX, clientY } = e;
-            const { innerWidth, innerHeight } = window;
-            const rotateX = (clientY / innerHeight - 0.5) * 15;
-            const rotateY = -(clientX / innerWidth - 0.5) * 15;
-            if (window.innerWidth > 768) { // Desativa em telas pequenas
-                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            }
-        });
-        document.body.addEventListener('mouseleave', () => card.style.transform = 'rotateX(0deg) rotateY(0deg)');
-
         // --- Lógica do Cursor Personalizado ---
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorOutline = document.querySelector('.cursor-outline');
-        const magneticElements = document.querySelectorAll('.magnetic');
-
         window.addEventListener('mousemove', (e) => {
             const { clientX, clientY } = e;
-            cursorDot.style.left = `${clientX}px`;
-            cursorDot.style.top = `${clientY}px`;
-            cursorOutline.style.left = `${clientX}px`;
-            cursorOutline.style.top = `${clientY}px`;
+            cursorDot.style.left = `${clientX}px`; cursorDot.style.top = `${clientY}px`;
+            cursorOutline.style.left = `${clientX}px`; cursorOutline.style.top = `${clientY}px`;
         });
-        
-        magneticElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursorOutline.classList.add('cursor-magnetic');
-            });
-            el.addEventListener('mouseleave', () => {
-                cursorOutline.classList.remove('cursor-magnetic');
-            });
+        document.querySelectorAll('.magnetic').forEach(el => {
+            el.addEventListener('mouseenter', () => cursorOutline.classList.add('cursor-magnetic'));
+            el.addEventListener('mouseleave', () => cursorOutline.classList.remove('cursor-magnetic'));
         });
 
-        // --- Lógica para alternância de tema e Partículas ---
+        // --- Lógica de Tema ---
         const themeToggleButton = document.getElementById('theme-toggle-button');
         const body = document.body;
-        let currentParticlesConfig;
-
-        const lightParticlesConfig = { particles: { color: { value: '#555555' }, line_linked: { color: '#777777' }, }, };
-        const darkParticlesConfig = { particles: { color: { value: '#bbbbbb' }, line_linked: { color: '#444444' }, }, };
-
-        function setupParticles(theme) {
-            const baseConfig = {
-                particles: {
-                    number: { value: 60, density: { enable: true, value_area: 800 } },
-                    shape: { type: 'circle' },
-                    opacity: { value: 0.5, random: true },
-                    size: { value: 3, random: true },
-                    line_linked: { enable: true, distance: 150, opacity: 0.4 },
-                    move: { enable: true, speed: 1, direction: 'none', out_mode: 'out' }
-                },
-                interactivity: {
-                    events: { onhover: { enable: true, mode: 'grab' }, },
-                    modes: { grab: { distance: 140, line_opacity: 1 } }
-                }
-            };
-            // Mescla a configuração base com a do tema
-            const finalConfig = { ...baseConfig, ...theme === 'dark' ? darkParticlesConfig : lightParticlesConfig };
-            particlesJS('particles-js', finalConfig);
-        }
-
         const applyTheme = (theme) => {
             body.className = theme === 'dark' ? 'dark-mode' : '';
-            setupParticles(theme);
+            if (window.update3DTheme) window.update3DTheme(theme);
         };
-        
-        const savedTheme = localStorage.getItem('theme') || 'light';
+        const savedTheme = localStorage.getItem('theme') || 'dark';
         applyTheme(savedTheme);
-
         themeToggleButton.addEventListener('click', () => {
             const newTheme = body.classList.contains('dark-mode') ? 'light' : 'dark';
             localStorage.setItem('theme', newTheme);
             applyTheme(newTheme);
         });
+
+        // --- Lógica da Cena 3D com Three.js ---
+        let scene, camera, renderer, shape;
+        const darkColor = 0x888888;
+        const lightColor = 0x444444;
+
+        function init3D() {
+            // Cena
+            scene = new THREE.Scene();
+            
+            // Câmera
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+
+            // Renderizador
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // Geometria (o objeto 3D)
+            const geometry = new THREE.TorusKnotGeometry(1.5, 0.3, 100, 16);
+            const material = new THREE.MeshStandardMaterial({
+                color: body.classList.contains('dark-mode') ? darkColor : lightColor,
+                roughness: 0.5,
+                metalness: 0.8
+            });
+            shape = new THREE.Mesh(geometry, material);
+            scene.add(shape);
+
+            // Luzes
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+            scene.add(ambientLight);
+            const pointLight = new THREE.PointLight(0xffffff, 1);
+            pointLight.position.set(5, 5, 5);
+            scene.add(pointLight);
+
+            // Animação
+            animate();
+        }
+
+        // Função de animação (loop)
+        const clock = new THREE.Clock();
+        function animate() {
+            requestAnimationFrame(animate);
+            const elapsedTime = clock.getElapsedTime();
+
+            shape.rotation.x = elapsedTime * 0.1;
+            shape.rotation.y = elapsedTime * 0.2;
+            
+            renderer.render(scene, camera);
+        }
+
+        // Atualiza a cor do objeto 3D ao mudar o tema
+        window.update3DTheme = (theme) => {
+            if (shape) {
+                shape.material.color.set(theme === 'dark' ? darkColor : lightColor);
+            }
+        };
+
+        // Responsividade
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        init3D();
     </script>
 </body>
 </html>
