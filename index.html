@@ -4,16 +4,54 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Meus Links</title>
+  <!-- Ícones do Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <style>
+    :root {
+      --bg-dark: #121212;
+      --bg-light: #f9f9f9;
+      --text-dark: #ffffff;
+      --text-light: #222222;
+      --card-dark: #1f1f1f;
+      --card-light: #ffffff;
+      --accent: #8f94fb;
+    }
+
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #4e54c8, #8f94fb);
+      background: var(--bg-dark);
+      color: var(--text-dark);
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
       min-height: 100vh;
       margin: 0;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.light {
+      background: var(--bg-light);
+      color: var(--text-light);
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      padding: 10px;
+      cursor: pointer;
+      color: var(--accent);
+      font-size: 18px;
+      transition: 0.3s;
+    }
+
+    .theme-toggle:hover {
+      background: var(--accent);
       color: #fff;
     }
 
@@ -22,7 +60,7 @@
       height: 120px;
       border-radius: 50%;
       object-fit: cover;
-      border: 3px solid #fff;
+      border: 3px solid var(--accent);
       margin-bottom: 15px;
     }
 
@@ -38,11 +76,14 @@
     }
 
     .link {
-      display: block;
-      width: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 260px;
       text-align: center;
-      background: #fff;
-      color: #4e54c8;
+      background: var(--card-dark);
+      color: var(--text-dark);
       padding: 12px;
       margin: 10px 0;
       border-radius: 25px;
@@ -52,8 +93,15 @@
     }
 
     .link:hover {
-      background: #f1f1f1;
+      background: var(--accent);
+      color: #fff;
       transform: scale(1.05);
+    }
+
+    body.light .link {
+      background: var(--card-light);
+      color: var(--text-light);
+      border: 1px solid #ddd;
     }
 
     footer {
@@ -64,16 +112,42 @@
   </style>
 </head>
 <body>
+  <button class="theme-toggle" onclick="toggleTheme()">
+    <i class="fas fa-moon"></i>
+  </button>
+
   <img src="https://via.placeholder.com/120" alt="Foto de Perfil" class="profile-pic">
   <h1>Seu Nome</h1>
   <p>@seudousuario</p>
 
-  <a class="link" href="https://instagram.com/seuusuario" target="_blank">Instagram</a>
-  <a class="link" href="https://twitter.com/seuusuario" target="_blank">Twitter / X</a>
-  <a class="link" href="https://linkedin.com/in/seuusuario" target="_blank">LinkedIn</a>
-  <a class="link" href="https://youtube.com/@seuusuario" target="_blank">YouTube</a>
-  <a class="link" href="mailto:seuemail@exemplo.com" target="_blank">E-mail</a>
+  <a class="link" href="https://instagram.com/seuusuario" target="_blank">
+    <i class="fab fa-instagram"></i> Instagram
+  </a>
+  <a class="link" href="https://twitter.com/seuusuario" target="_blank">
+    <i class="fab fa-x-twitter"></i> Twitter / X
+  </a>
+  <a class="link" href="https://linkedin.com/in/seuusuario" target="_blank">
+    <i class="fab fa-linkedin"></i> LinkedIn
+  </a>
+  <a class="link" href="https://youtube.com/@seuusuario" target="_blank">
+    <i class="fab fa-youtube"></i> YouTube
+  </a>
+  <a class="link" href="mailto:seuemail@exemplo.com" target="_blank">
+    <i class="fas fa-envelope"></i> E-mail
+  </a>
 
   <footer>© 2025 - Todos os direitos reservados</footer>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('light');
+      const icon = document.querySelector('.theme-toggle i');
+      if (document.body.classList.contains('light')) {
+        icon.classList.replace('fa-moon', 'fa-sun');
+      } else {
+        icon.classList.replace('fa-sun', 'fa-moon');
+      }
+    }
+  </script>
 </body>
 </html>
