@@ -1,187 +1,160 @@
-<!doctype html>
-<html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Meus Links</title>
-  <meta name="description" content="Todos os meus links em um só lugar." />
-  <meta property="og:title" content="Meus Links" />
-  <meta property="og:description" content="Todos os meus links em um só lugar." />
-  <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#6d5dfc" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%236d5dfc'/%3E%3Ctext x='50' y='60' font-family='Arial' font-size='48' text-anchor='middle' fill='white'%3EL%3C/text%3E%3C/svg%3E" />
-  <style>
-    /* ====== Tema e resets ====== */
-    :root{
-      --bg: #0f1021;
-      --card: #17182e;
-      --fg: #e7e8f2;
-      --muted: #b7b9d1;
-      --accent: #6d5dfc;
-      --accent-2: #08d9d6;
-      --ring: rgba(109,93,252,.4);
-      --shadow: 0 20px 60px rgba(0,0,0,.35);
-    }
-    @media (prefers-color-scheme: light){
-      :root{
-        --bg: #f6f7fb;
-        --card: #ffffff;
-        --fg: #14151f;
-        --muted: #5b5d75;
-        --accent: #6d5dfc;
-        --accent-2: #0ea5e9;
-        --ring: rgba(13,110,253,.3);
-        --shadow: 0 18px 50px rgba(26,26,44,.08);
-      }
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji','Segoe UI Emoji', 'Segoe UI Symbol';
-      color:var(--fg); background:
-        radial-gradient(1200px 600px at 10% -10%, rgba(109,93,252,.15), transparent 60%),
-        radial-gradient(900px 500px at 100% 0%, rgba(14,165,233,.12), transparent 55%),
-        var(--bg);
-      display:grid; place-items:center; padding:28px;
-    }
-    .card{ width:100%; max-width: 430px; background:var(--card); border-radius:28px; box-shadow:var(--shadow); padding:28px; position:relative; overflow:hidden;}
-    .glow{ position:absolute; inset:auto auto -40% -40%; width:120%; height:120%; background:radial-gradient(500px 500px at 0% 100%, rgba(109,93,252,.18), transparent 60%); pointer-events:none; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Links | Seu Nome</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Reseta estilos padrão do navegador */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    /* Header */
-    .avatar{ width:108px; height:108px; border-radius:999px; border:3px solid rgba(255,255,255,.12); box-shadow:0 8px 26px rgba(0,0,0,.25); object-fit:cover; }
-    .header{ display:flex; flex-direction:column; align-items:center; gap:14px; text-align:center; margin-bottom:16px; }
-    .name{ font-size:1.5rem; font-weight:800; letter-spacing:.3px; margin:0; }
-    .bio{ color:var(--muted); margin:0; line-height:1.5; font-size:.98rem; }
+        /* Estilo principal do corpo da página */
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            /* Fundo gradiente animado */
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-    /* Links */
-    .links{ display:flex; flex-direction:column; gap:12px; margin-top:16px; }
-    .link{
-      display:flex; align-items:center; gap:12px;
-      padding:14px 16px; text-decoration:none; color:var(--fg);
-      border:1px solid rgba(255,255,255,.08);
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      backdrop-filter: saturate(120%) blur(4px);
-      border-radius:16px; box-shadow: 0 6px 16px rgba(0,0,0,.18);
-      transition: transform .08s ease, box-shadow .2s ease, border-color .2s ease;
-    }
-    .link:hover{ transform: translateY(-2px); border-color: rgba(255,255,255,.18); box-shadow: 0 10px 24px rgba(0,0,0,.22); }
-    .link:focus{ outline: none; box-shadow: 0 0 0 6px var(--ring); }
-    .link .text{ flex:1; font-weight:600; }
-    .link .badge{ font-size:.8rem; padding:.2rem .5rem; border-radius:999px; border:1px solid rgba(255,255,255,.18); color:var(--fg); opacity:.8; }
+        /* Animação do fundo gradiente */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-    /* Footer */
-    .footer{ display:flex; justify-content:center; gap:10px; margin-top:18px; opacity:.8; font-size:.9rem; color:var(--muted); }
-    .dot{ width:5px; height:5px; border-radius:50%; background:currentColor; align-self:center; opacity:.5 }
+        /* Container principal */
+        .container {
+            max-width: 680px;
+            width: 100%;
+            text-align: center;
+            padding: 40px 30px;
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
 
-    /* Toggle */
-    .toolbar{ position:absolute; top:12px; right:12px; display:flex; gap:8px; }
-    .btn{ border:none; background:rgba(255,255,255,.08); color:var(--fg); padding:9px 11px; border-radius:12px; display:inline-flex; align-items:center; gap:8px; cursor:pointer; box-shadow:0 6px 14px rgba(0,0,0,.18); }
-    .btn:focus{ outline:none; box-shadow:0 0 0 6px var(--ring) }
-    .hidden{ display:none }
+        /* Foto de perfil */
+        .profile-picture {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.9);
+            margin-bottom: 15px;
+            transition: transform 0.3s ease-in-out;
+        }
 
-    /* Small screens spacing */
-    @media (max-width: 380px){ .card{ padding:22px } }
-  </style>
+        .profile-picture:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Nome de usuário */
+        .username {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        /* Descrição curta */
+        .description {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 30px;
+        }
+
+        /* Lista de links */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 18px; /* Espaçamento entre os botões */
+        }
+
+        /* Botão de link */
+        .link-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: rgba(255, 255, 255, 0.95);
+            color: #333;
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .link-button:hover {
+            background-color: #fff;
+            color: #e73c7e; /* Cor do gradiente para o hover */
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .link-button i {
+            font-size: 1.3rem;
+        }
+
+        /* Rodapé */
+        .footer {
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+    </style>
 </head>
 <body>
-  <main class="card" role="main">
-    <div class="glow" aria-hidden="true"></div>
 
-    <div class="toolbar">
-      <button id="themeBtn" class="btn" aria-label="Alternar tema" title="Alternar tema">
-        <!-- moon/sun icon -->
-        <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        </svg>
-      </button>
-    </div>
+    <main class="container">
+        <header>
+            <img src="https://via.placeholder.com/150" alt="Foto de Perfil" class="profile-picture">
+            <h1 class="username">@seuusuario</h1>
+            <p class="description">Bem-vindo(a) aos meus links oficiais!</p>
+        </header>
 
-    <header class="header">
-      <!-- Substitua a imagem pelo seu avatar (pode hospedar no próprio projeto) -->
-      <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=300&auto=format&fit=crop" alt="Foto de perfil" class="avatar" />
-      <h1 class="name">Seu Nome</h1>
-      <p class="bio">Uma frase curta sobre você ou sua marca. Ex.: criador de conteúdo, designer e dev front-end.</p>
-    </header>
+        <div class="links-container">
+            <a href="https://www.instagram.com/seuusuario" target="_blank" class="link-button">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
 
-    <section class="links" aria-label="Lista de links">
-      <!-- Cada link é um <a>. Troque o href e o texto -->
-      <a class="link" href="https://instagram.com/seuusuario" target="_blank" rel="noopener noreferrer">
-        <span aria-hidden="true">📸</span>
-        <span class="text">Instagram</span>
-        <span class="badge">@seuusuario</span>
-      </a>
+            <a href="https://www.tiktok.com/@seuusuario" target="_blank" class="link-button">
+                <i class="fab fa-tiktok"></i> TikTok
+            </a>
 
-      <a class="link" href="https://tiktok.com/@seuusuario" target="_blank" rel="noopener noreferrer">
-        <span aria-hidden="true">🎵</span>
-        <span class="text">TikTok</span>
-        <span class="badge">@seuusuario</span>
-      </a>
+            <a href="https://github.com/seuusuario" target="_blank" class="link-button">
+                <i class="fab fa-github"></i> GitHub
+            </a>
 
-      <a class="link" href="https://youtube.com/@seuusuario" target="_blank" rel="noopener noreferrer">
-        <span aria-hidden="true">▶️</span>
-        <span class="text">YouTube</span>
-        <span class="badge">Inscreva-se</span>
-      </a>
+            <a href="https://www.linkedin.com/in/seuusuario" target="_blank" class="link-button">
+                <i class="fab fa-linkedin-in"></i> LinkedIn
+            </a>
+            
+            <a href="https://seusite.com" target="_blank" class="link-button">
+                <i class="fas fa-globe"></i> Website Pessoal
+            </a>
+        </div>
 
-      <a class="link" href="https://www.linkedin.com/in/seuusuario" target="_blank" rel="noopener noreferrer">
-        <span aria-hidden="true">💼</span>
-        <span class="text">LinkedIn</span>
-        <span class="badge">Conectar</span>
-      </a>
+        <footer class="footer">
+            <p>Feito com ❤️</p>
+        </footer>
+    </main>
 
-      <a class="link" href="https://github.com/seuusuario" target="_blank" rel="noopener noreferrer">
-        <span aria-hidden="true">💻</span>
-        <span class="text">GitHub</span>
-        <span class="badge">Repositórios</span>
-      </a>
-
-      <a class="link" href="https://wa.me/5599999999999" target="_blank" rel="noopener noreferrer">
-        <span aria-hidden="true">💬</span>
-        <span class="text">WhatsApp</span>
-        <span class="badge">Fale comigo</span>
-      </a>
-
-      <a class="link" href="mailto:voce@email.com" target="_blank" rel="noopener noreferrer">
-        <span aria-hidden="true">✉️</span>
-        <span class="text">Email</span>
-        <span class="badge">Enviar</span>
-      </a>
-    </section>
-
-    <footer class="footer" role="contentinfo">
-      <span>&copy; <span id="year"></span> Seu Nome</span>
-      <span class="dot"></span>
-      <a href="#" style="color:inherit; opacity:.9;">@seuusuario</a>
-    </footer>
-  </main>
-
-  <script>
-    // Preenche o ano automaticamente
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Alternância de tema com persistência em localStorage
-    const themeBtn = document.getElementById('themeBtn');
-    const themeIcon = document.getElementById('themeIcon');
-
-    const applyTheme = (mode) => {
-      document.documentElement.dataset.theme = mode; // não usamos diretamente, mas guarda o estado
-      // Muda o ícone (lua/sol simples)
-      themeIcon.innerHTML = mode === 'light'
-        ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>'
-        : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-    };
-
-    // Usa preferência salva ou do sistema
-    const saved = localStorage.getItem('theme');
-    const sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    let mode = saved || (sysDark ? 'dark' : 'light');
-    applyTheme(mode);
-
-    themeBtn.addEventListener('click', () => {
-      mode = mode === 'dark' ? 'light' : 'dark';
-      localStorage.setItem('theme', mode);
-      applyTheme(mode);
-    });
-  </script>
 </body>
 </html>
