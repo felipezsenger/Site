@@ -26,6 +26,7 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            perspective: 1000px; /* Necessário para o efeito 3D do card */
         }
 
         /* Animação do fundo gradiente */
@@ -33,6 +34,18 @@
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
+        }
+        
+        /* Keyframes para a animação de entrada */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Container principal */
@@ -42,10 +55,17 @@
             text-align: center;
             padding: 40px 30px;
             background: rgba(0, 0, 0, 0.25);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: transform 0.2s ease-out; /* Transição para o efeito de inclinação */
+        }
+        
+        /* Estilização para animação de entrada */
+        header, .links-container > *, .footer {
+            opacity: 0; /* Começa invisível */
+            animation: fadeInUp 0.8s ease-out forwards;
         }
 
         /* Foto de perfil */
@@ -57,24 +77,26 @@
             border: 3px solid rgba(255, 255, 255, 0.9);
             margin-bottom: 15px;
             transition: transform 0.3s ease-in-out;
+            animation-delay: 0.2s; /* Atraso para aparecer depois */
         }
 
         .profile-picture:hover {
             transform: scale(1.1) rotate(5deg);
         }
 
-        /* Nome de usuário */
+        /* Nome de usuário e Descrição */
         .username {
             font-size: 2rem;
             font-weight: 700;
             margin-bottom: 8px;
+            animation-delay: 0.4s;
         }
 
-        /* Descrição curta */
         .description {
             font-size: 1rem;
             color: rgba(255, 255, 255, 0.85);
             margin-bottom: 30px;
+            animation-delay: 0.5s;
         }
 
         /* Lista de links */
@@ -83,13 +105,21 @@
             flex-direction: column;
             gap: 18px; /* Espaçamento entre os botões */
         }
+        
+        /* Atraso em cascata para cada botão */
+        .links-container a:nth-child(1) { animation-delay: 0.6s; }
+        .links-container a:nth-child(2) { animation-delay: 0.7s; }
+        .links-container a:nth-child(3) { animation-delay: 0.8s; }
+        .links-container a:nth-child(4) { animation-delay: 0.9s; }
+        .links-container a:nth-child(5) { animation-delay: 1.0s; }
+
 
         /* Botão de link */
         .link-button {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             background-color: rgba(255, 255, 255, 0.95);
             color: #333;
             text-decoration: none;
@@ -98,31 +128,56 @@
             font-size: 1.1rem;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .link-button:hover {
-            background-color: #fff;
-            color: #e73c7e; /* Cor do gradiente para o hover */
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
         }
 
         .link-button i {
             font-size: 1.3rem;
+            transition: color 0.3s ease;
         }
+        
+        .link-button:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            color: #fff;
+        }
+        
+        /* Efeito de brilho e cor personalizada no hover */
+        .link-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            transition: all 0.35s ease-in-out;
+            z-index: -1;
+        }
+
+        .link-button:hover::before {
+            left: 0;
+        }
+        
+        /* Cores de fundo personalizadas para cada botão no hover */
+        .link-button.instagram:hover::before { background: #d62976; }
+        .link-button.tiktok:hover::before { background: #000000; }
+        .link-button.github:hover::before { background: #181717; }
+        .link-button.linkedin:hover::before { background: #0A66C2; }
+        .link-button.website:hover::before { background: #4a90e2; }
 
         /* Rodapé */
         .footer {
             margin-top: 40px;
             font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.7);
+            animation-delay: 1.2s;
         }
     </style>
 </head>
 <body>
 
-    <main class="container">
+    <main class="container" id="card">
         <header>
             <img src="https://via.placeholder.com/150" alt="Foto de Perfil" class="profile-picture">
             <h1 class="username">@seuusuario</h1>
@@ -130,31 +185,50 @@
         </header>
 
         <div class="links-container">
-            <a href="https://www.instagram.com/felipezsenger" target="_blank" class="link-button">
+            <a href="https://www.instagram.com/seuusuario" target="_blank" class="link-button instagram">
                 <i class="fab fa-instagram"></i> Instagram
             </a>
 
-            <a href="https://www.tiktok.com/@seuusuario" target="_blank" class="link-button">
+            <a href="https://www.tiktok.com/@seuusuario" target="_blank" class="link-button tiktok">
                 <i class="fab fa-tiktok"></i> TikTok
             </a>
 
-            <a href="https://github.com/felipezsenger" target="_blank" class="link-button">
+            <a href="https://github.com/seuusuario" target="_blank" class="link-button github">
                 <i class="fab fa-github"></i> GitHub
             </a>
 
-            <a href="https://www.linkedin.com/in/felipezsenger" target="_blank" class="link-button">
+            <a href="https://www.linkedin.com/in/seuusuario" target="_blank" class="link-button linkedin">
                 <i class="fab fa-linkedin-in"></i> LinkedIn
             </a>
             
-            <a href="https://seusite.com" target="_blank" class="link-button">
+            <a href="https://seusite.com" target="_blank" class="link-button website">
                 <i class="fas fa-globe"></i> Website Pessoal
             </a>
         </div>
 
         <footer class="footer">
-            <p>Feito com ❤️</p>
+            <p>Feito com ❤️ e um pouco de JavaScript</p>
         </footer>
     </main>
+
+    <script>
+        const card = document.getElementById('card');
+        const sensitivity = 20; // Quão sensível será o efeito. Menor = mais sensível
+
+        document.body.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const { innerWidth, innerHeight } = window;
+
+            const rotateX = (clientY / innerHeight - 0.5) * sensitivity;
+            const rotateY = -(clientX / innerWidth - 0.5) * sensitivity;
+
+            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        document.body.addEventListener('mouseleave', () => {
+            card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+        });
+    </script>
 
 </body>
 </html>
