@@ -10,11 +10,8 @@
   <style>
     :root {
       --bg-dark: #0a0a0a;
-      --bg-light: #f0f4f8;
       --text-dark: #ffffff;
-      --text-light: #1a1a1a;
       --card-dark: #1f1f1fdd;
-      --card-light: rgba(255, 255, 255, 0.6);
       --accent: #00ff9d;
     }
 
@@ -28,14 +25,8 @@
       flex-direction: column;
       min-height: 100vh;
       margin: 0;
-      transition: background 0.5s, color 0.5s;
       position: relative;
       overflow: hidden;
-    }
-
-    body.light {
-      background: linear-gradient(135deg, #e8f5ff, #fdfdfd);
-      color: var(--text-light);
     }
 
     /* Canvas de fundo (efeito Matrix) */
@@ -47,30 +38,6 @@
       height: 100%;
       z-index: -1;
       background: var(--bg-dark);
-      transition: 0.5s;
-    }
-    body.light canvas {
-      background: linear-gradient(135deg, #cce7ff, #fdfdfd);
-    }
-
-    .theme-toggle {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: none;
-      border: 2px solid var(--accent);
-      border-radius: 50%;
-      padding: 10px;
-      cursor: pointer;
-      color: var(--accent);
-      font-size: 18px;
-      transition: 0.3s;
-      z-index: 2;
-    }
-
-    .theme-toggle:hover {
-      background: var(--accent);
-      color: #fff;
     }
 
     .profile-pic {
@@ -107,11 +74,6 @@
       flex-direction: column;
       align-items: center;
       z-index: 1;
-      transition: 0.5s;
-    }
-    body.light .links-container {
-      background: rgba(255, 255, 255, 0.55);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
     }
 
     .link {
@@ -139,13 +101,6 @@
       box-shadow: 0 0 12px rgba(0, 255, 157, 0.6);
     }
 
-    body.light .link {
-      background: var(--card-light);
-      color: var(--text-light);
-      border: 1px solid rgba(0,0,0,0.05);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    }
-
     footer {
       margin-top: 20px;
       font-size: 12px;
@@ -157,47 +112,32 @@
 <body>
   <canvas id="matrix"></canvas>
 
-  <button class="theme-toggle" onclick="toggleTheme()">
-    <i class="fas fa-moon"></i>
-  </button>
-
   <img src="https://via.placeholder.com/120" alt="Foto de Perfil" class="profile-pic">
-  <h1>Seu Nome</h1>
-  <p>@seudousuario</p>
+  <h1>Felipe Z. Senger</h1>
+  <p>@felipezsenger</p>
 
   <!-- Caixa transparente -->
   <div class="links-container">
-    <a class="link" href="https://instagram.com/seuusuario" target="_blank">
+    <a class="link" href="https://instagram.com/felipezsenger" target="_blank">
       <i class="fab fa-instagram"></i> Instagram
     </a>
-    <a class="link" href="https://twitter.com/seuusuario" target="_blank">
+    <a class="link" href="https://www.threads.net/@felipezsenger" target="_blank">
+      <i class="fa-brands fa-threads"></i> Threads
+    </a>
+    <a class="link" href="https://twitter.com/felipezsenger" target="_blank">
       <i class="fab fa-x-twitter"></i> Twitter / X
     </a>
-    <a class="link" href="https://linkedin.com/in/seuusuario" target="_blank">
+    <a class="link" href="https://github.com/felipezsenger" target="_blank">
+      <i class="fab fa-github"></i> GitHub
+    </a>
+    <a class="link" href="https://linkedin.com/in/felipezsenger" target="_blank">
       <i class="fab fa-linkedin"></i> LinkedIn
-    </a>
-    <a class="link" href="https://youtube.com/@seuusuario" target="_blank">
-      <i class="fab fa-youtube"></i> YouTube
-    </a>
-    <a class="link" href="mailto:seuemail@exemplo.com" target="_blank">
-      <i class="fas fa-envelope"></i> E-mail
     </a>
   </div>
 
   <footer>© 2025 - Todos os direitos reservados</footer>
 
   <script>
-    // Alternar tema
-    function toggleTheme() {
-      document.body.classList.toggle('light');
-      const icon = document.querySelector('.theme-toggle i');
-      if (document.body.classList.contains('light')) {
-        icon.classList.replace('fa-moon', 'fa-sun');
-      } else {
-        icon.classList.replace('fa-sun', 'fa-moon');
-      }
-    }
-
     // Efeito Matrix
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
