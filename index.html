@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Felipe Zago Senger</title>
-  <!-- Ícones do Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
@@ -29,7 +28,6 @@
       overflow: hidden;
     }
 
-    /* Canvas de fundo (efeito Matrix) */
     canvas {
       position: fixed;
       top: 0;
@@ -42,13 +40,14 @@
 
     .transparent-container {
       background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       padding: 40px 25px;
-      border-radius: 20px;
+      border-radius: 30px; /* cantos arredondados */
       display: flex;
       flex-direction: column;
       align-items: center;
       z-index: 1;
+      overflow: hidden; /* impede que elementos internos "vazem" */
     }
 
     .profile-pic {
@@ -76,7 +75,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 0; /* remove fundo e padding da caixa de links */
+      padding: 0;
       width: 100%;
     }
 
@@ -85,13 +84,14 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      width: 260px;
+      width: 100%;
+      max-width: 260px;
       text-align: center;
       background: var(--card-dark);
       color: var(--text-dark);
       padding: 12px;
-      margin: 10px 0;
-      border-radius: 25px;
+      margin: 8px 0;
+      border-radius: 25px; /* cantos arredondados */
       text-decoration: none;
       font-weight: bold;
       transition: 0.3s;
@@ -115,7 +115,6 @@
 <body>
   <canvas id="matrix"></canvas>
 
-  <!-- Container transparente englobando tudo -->
   <div class="transparent-container">
     <img src="image.jpg" alt="Foto de Perfil" class="profile-pic">
     <h1>Felipe Zago Senger</h1>
@@ -135,7 +134,7 @@
         <i class="fab fa-github"></i> GitHub
       </a>
       <a class="link" href="https://linkedin.com/in/felipezsenger" target="_blank">
-        <i class="fab fa-linkedin"></i> Linkedin
+        <i class="fab fa-linkedin"></i> LinkedIn
       </a>
     </div>
   </div>
@@ -143,7 +142,6 @@
   <footer>© 2025 - Todos os direitos reservados</footer>
 
   <script>
-    // Efeito Matrix
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
