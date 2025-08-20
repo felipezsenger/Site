@@ -40,6 +40,17 @@
       background: var(--bg-dark);
     }
 
+    .transparent-container {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      padding: 40px 25px;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 1;
+    }
+
     .profile-pic {
       width: 120px;
       height: 120px;
@@ -47,33 +58,26 @@
       object-fit: cover;
       border: 3px solid var(--accent);
       margin-bottom: 15px;
-      z-index: 1;
       box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
     }
 
     h1 {
       margin: 0;
       font-size: 24px;
-      z-index: 1;
     }
 
     p {
       margin: 5px 0 20px;
       font-size: 14px;
       opacity: 0.8;
-      z-index: 1;
     }
 
-    /* Caixa transparente para os botões */
     .links-container {
-      background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
-      padding: 25px;
-      border-radius: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      z-index: 1;
+      padding: 0; /* remove fundo e padding da caixa de links */
+      width: 100%;
     }
 
     .link {
@@ -91,7 +95,6 @@
       text-decoration: none;
       font-weight: bold;
       transition: 0.3s;
-      z-index: 1;
     }
 
     .link:hover {
@@ -112,27 +115,29 @@
 <body>
   <canvas id="matrix"></canvas>
 
-  <img src="image.jpg" alt="Foto de Perfil" class="profile-pic">
-  <h1>Felipe Zago Senger</h1>
-  <p>@felipezsenger</p>
+  <!-- Container transparente englobando tudo -->
+  <div class="transparent-container">
+    <img src="image.jpg" alt="Foto de Perfil" class="profile-pic">
+    <h1>Felipe Zago Senger</h1>
+    <p>@felipezsenger</p>
 
-  <!-- Caixa transparente -->
-  <div class="links-container">
-    <a class="link" href="https://instagram.com/felipezsenger" target="_blank">
-      <i class="fab fa-instagram"></i> Instagram
-    </a>
-    <a class="link" href="https://www.threads.net/@felipezsenger" target="_blank">
-      <i class="fa-brands fa-threads"></i> Threads
-    </a>
-    <a class="link" href="https://twitter.com/felipezsenger" target="_blank">
-      <i class="fab fa-x-twitter"></i> Twitter / X
-    </a>
-    <a class="link" href="https://github.com/felipezsenger" target="_blank">
-      <i class="fab fa-github"></i> GitHub
-    </a>
-    <a class="link" href="https://linkedin.com/in/felipezsenger" target="_blank">
-      <i class="fab fa-linkedin"></i> LinkedIn
-    </a>
+    <div class="links-container">
+      <a class="link" href="https://instagram.com/felipezsenger" target="_blank">
+        <i class="fab fa-instagram"></i> Instagram
+      </a>
+      <a class="link" href="https://www.threads.net/@felipezsenger" target="_blank">
+        <i class="fa-brands fa-threads"></i> Threads
+      </a>
+      <a class="link" href="https://twitter.com/felipezsenger" target="_blank">
+        <i class="fab fa-x-twitter"></i> Twitter / X
+      </a>
+      <a class="link" href="https://github.com/felipezsenger" target="_blank">
+        <i class="fab fa-github"></i> GitHub
+      </a>
+      <a class="link" href="https://linkedin.com/in/felipezsenger" target="_blank">
+        <i class="fab fa-linkedin"></i> Linkedin
+      </a>
+    </div>
   </div>
 
   <footer>© 2025 - Todos os direitos reservados</footer>
@@ -156,7 +161,7 @@
       ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = "#00ff9d"; // verde neon
+      ctx.fillStyle = "#00ff9d";
       ctx.font = fontSize + "px monospace";
 
       for (let i = 0; i < drops.length; i++) {
